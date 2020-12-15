@@ -1,3 +1,6 @@
+@inline read_parse(ws) = ws |> readavailable |> String |> JSON.parse
+@inline preprocess(i)::BitMatrix = hcat(i...) .|> Bool |> transpose
+
 function henlo()
     op_mapping = Dict{String, Function}("-" => -, "+" => +, "*" => *)
     start_json = Dict("data" => Dict("message" => "Let's start")) |> JSON.json

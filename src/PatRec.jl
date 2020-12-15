@@ -1,10 +1,10 @@
 module PatRec
 
+using LinearAlgebra
 using HTTP
 import JSON
-
-@inline read_parse(ws) = ws |> readavailable |> String |> JSON.parse
-@inline preprocess(i)::BitMatrix = hcat(i...) .|> Bool |> transpose
+using Plots
+gr()
 
 include("first.jl")
 include("second.jl")
