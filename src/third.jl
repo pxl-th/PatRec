@@ -12,10 +12,7 @@ function preprocess(n1::Integer, n2::Integer)
     train_x, test_x, test_y
 end
 
-"""
-P (1, K)
-C (I, K)
-"""
+"""P (1, K); C (I, K)"""
 function init(data)
     n = size(data)[2]
     C = Matrix{Float64}(undef, size(data)[1], 2)
@@ -30,11 +27,8 @@ function init(data)
     reshape(P, 1, 2), C
 end
 
-"""
-Expectation step.
-E (N, K)
-"""
-function e(data, P, C)
+"""Expectation step. E (N, K)"""
+@inline function e(data, P, C)
     @inbounds E = [
         prod(C[:, k] .^ data[:, i] .* (1 .- C[:, k]) .^ (1 .- data[:, i]))
         for i in 1:size(data)[2], k in 1:2
@@ -44,13 +38,10 @@ end
 
 """
 Maximization step.
-data (I, N)
-Ce (N, K)
-
-P (1, K)
-C (I, K)
+data (I, N); Ce (N, K)
+P (1, K); C (I, K)
 """
-function m(data, Ce)
+@inline function m(data, Ce)
     M, C = sum(Ce, dims=1), Matrix{Float64}(undef, size(data)[1], 2)
     @inbounds @simd for k in 1:2
         C[:, k] .= sum(data .* reshape(Ce[:, k], 1, :), dims=2)[:, 1] / M[k]
@@ -58,7 +49,7 @@ function m(data, Ce)
     reshape(M ./ size(data)[2], 1, 2), C
 end
 
-function eval(P, C, x, y, n1, n2)
+@inline function eval(P, C, x, y, n1, n2)
     y_pred = map(i -> i[2], argmax(e(x, P, C), dims=2))
     n1_ids = y_pred .== 1
     y_pred[n1_ids] .= n1
