@@ -26,9 +26,8 @@ function text_recognition(dir::String)
     for (i, c) in enumerate(Σ)
         f[1, i] = log(cp["$c "]) + loss(image_letters[1], Ε[c], noise)
     end
-    for (i, nl) in enumerate(image_letters), (s1, σ1) in enumerate(Σ)
+    for (i, nl) in enumerate(image_letters[1:end-1]), (s1, σ1) in enumerate(Σ)
         isinf(f[i, s1]) && continue
-        i == length(image_letters) && break
         for (s2, σ2) in enumerate(Σ)
             p = log(cp["$σ2$σ1"]) + loss(image_letters[i + 1], Ε[σ2], noise) + f[i, s1]
             p > f[i + 1, s2] && (f[i + 1, s2] = p;)
