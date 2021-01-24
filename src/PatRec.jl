@@ -1,21 +1,24 @@
 module PatRec
 
-using Random
-using LinearAlgebra
-using HTTP
+# using Random
+# using LinearAlgebra
+# using HTTP
 import JSON
-using MLDatasets
-using ConstraintSolver
-using JuMP
-using Plots
-gr()
+using Images
+using FileIO
+# using MLDatasets
+# using ConstraintSolver
+# using JuMP
+# using Plots
+# gr()
 
-Random.seed!(0)
+# Random.seed!(0)
 
-include("first.jl")
-include("second.jl")
-include("third.jl")
-include("fourth.jl")
+# include("first.jl")
+# include("second.jl")
+# include("third.jl")
+# include("fourth.jl")
+include("fifth.jl")
 
 # First practicum.
 # henlo()
@@ -29,19 +32,21 @@ include("fourth.jl")
 # em(4, 2, 5)
 
 # Fourth practicum.
-initial_solution = [
-    5 3 0 0 7 0 0 0 0;
-    6 0 0 1 9 5 0 0 0;
-    0 9 8 0 0 0 0 6 0;
-    8 0 0 0 6 0 0 0 3;
-    4 0 0 8 0 3 0 0 1;
-    7 0 0 0 2 0 0 0 6;
-    0 6 0 0 0 0 2 8 0;
-    0 0 0 4 1 9 0 0 5;
-    0 0 0 0 8 0 0 7 9;
-]
-solution = sudoku(initial_solution)
-display(initial_solution)
-display(solution)
+# initial_solution = [
+#     5 3 0 0 7 0 0 0 0;
+#     6 0 0 1 9 5 0 0 0;
+#     0 9 8 0 0 0 0 6 0;
+#     8 0 0 0 6 0 0 0 3;
+#     4 0 0 8 0 3 0 0 1;
+#     7 0 0 0 2 0 0 0 6;
+#     0 6 0 0 0 0 2 8 0;
+#     0 0 0 4 1 9 0 0 5;
+#     0 0 0 0 8 0 0 7 9;
+# ]
+# solution = sudoku(initial_solution)
+# display(initial_solution)
+# display(solution)
+
+text_recognition(raw"C:\Users\tonys\projects\julia\PatRec\res\lab5_data")
 
 end
